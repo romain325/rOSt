@@ -81,3 +81,4 @@ Next time we'll dig a bit and start to play with some memory !
 
 - <https://docs.rust-embedded.org/embedonomicon/smallest-no-std.html>
 - <https://os.phil-opp.com/freestanding-rust-binary/>
+- <https://docs.rust-embedded.org/embedonomicon/custom-target.html>
