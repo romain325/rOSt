@@ -102,6 +102,47 @@ impl VGAWriter {
             }
         }
     }
+    
+    pub fn change_color(&mut self, color: VGAColorCode) {
+        self.color_code = color;
+    }
+}
+impl fmt::Write for VGAWriter {
+    fn write_str(&mut self, s: &str) -> fmt::Result {
+        self.write_str(s);
+        Ok(())
+    }
+}
+use spin::Mutex;
+use lazy_static::lazy_static;
+lazy_static! {
+    pub static ref VGA_WRITER : Mutex<VGAWriter> = Mutex::new(VGAWriter {
+        col_pos: 0,
+        color_code: VGAColorCode::new(VGAColor::Magenta, VGAColor::Black),
+        buff: unsafe { &mut *(VGA_BUFFER_ADDRESS) },
+    });
 }
 
+/******************MACROS******************/
 
+#[doc(hidden)]
+pub fn _print(args: fmt::Arguments) {
+    use core::fmt::Write;
+    VGA_WRITER.lock().write_fmt(args).unwrap();
+}
+
+#[macro_export]
+macro_rules! print {
+    ($($arg:tt)*) => ($crate::kernel::vga_buffer_disp::_print(format_args!($($arg)*)));
+}
+
+#[macro_export]
+macro_rules! println {
+    () => ($crate::print!("\n"));
+    ($($arg:tt)*) => ($crate::print!("{}\n", format_args!($($arg)*)));
+}
+
+#[macro_export]
+macro_rules! set_print_color {
+    ($($arg:tt)*) => ($crate::kernel::vga_buffer_disp::VGA_WRITER.lock().change_color($($arg)*));
+}
