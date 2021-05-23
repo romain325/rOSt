@@ -1,6 +1,8 @@
 #![no_std]  // disable standard lib
 #![no_main] // disable default entry point
 
+mod memory;
+
 use core::panic::PanicInfo;
 // define panic handler
 #[panic_handler]
