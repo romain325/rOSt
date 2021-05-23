@@ -11,6 +11,12 @@ As it is kinda hard, let's get a bit of inspiration from redox (I do really like
 Oh and btw, the code will start to get a bit complex so if the RUST syntax or logic so take a crashcourse before lol  
 I'll not be really greedy in explanation as it is just iterating through data, writing const on top of a given space  
 
+## tl;dr;
+
+- [x] allocate memory ourselves  
+- [x] Get rid of the builtins-mem  
+- [x] Move, Copy, Set & Compare memory  
+
 ## memset
 
 So let's first reinterpret a bit of memory from a type to another
