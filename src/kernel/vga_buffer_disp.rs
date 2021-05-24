@@ -75,9 +75,14 @@ impl VGAWriter {
         }
     }
 
+    fn tab(&mut self) {
+        self.write_str("	");
+    }
+
     pub fn write_byte(&mut self, byte: u8) {
         match byte {
             b'\n' => self.new_line(),
+            b'\n' => self.tab(),
             byte => {
                 if self.col_pos >= BUFFER_WIDTH {
                     self.new_line();
