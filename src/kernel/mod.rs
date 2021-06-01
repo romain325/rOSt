@@ -2,3 +2,4 @@
 // pub mod memory;
 pub mod vga_buffer_disp;
 pub mod panic_h;
+pub mod interrupts;

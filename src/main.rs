@@ -3,6 +3,7 @@
 #![feature(custom_test_frameworks)]
 #![test_runner(crate::test::test_runner)]
 #![reexport_test_harness_main = "test_main"]
+#![feature(abi_x86_interrupt)]
 
 mod kernel;
 mod test;
@@ -14,6 +15,8 @@ use crate::kernel::vga_buffer_disp::*;
 // Override start function as we don't have anything before to init it
 pub extern "C" fn _start() -> ! {
     print_shit();
+
+    kernel::interrupts::init_idt();
 
     #[cfg(test)]
     test_main();
